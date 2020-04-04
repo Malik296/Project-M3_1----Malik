@@ -101,7 +101,7 @@ let handleMouseDown = (e) => {
         else if ((e.pageY - shift.y) < rectContainert.top) {
             copyElement.style.top = 0 + 'px';
             indexNum = 0;
-        } else if ((e.pageY - shift.y) > rectContainert.bottom) {
+        } else if ((e.pageY + shift.y) > rectContainert.bottom) {
             copyElement.style.bottom = 0 + 'px';
             indexNum = (rectContainert.bottom - rectContainert.top) / INPUT_ROW_HEIGHT;
         }
