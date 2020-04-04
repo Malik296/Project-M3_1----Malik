@@ -98,10 +98,10 @@ let handleMouseDown = (e) => {
             copyElement.style.top = (e.screenY - rectContainert.top - shift.y) + 'px';
             indexNum = (e.screenY - rectContainert.top - shift.y + INPUT_ROW_HEIGHT / 2) / INPUT_ROW_HEIGHT;
         }
-        else if ((e.pageY - shift.y) < rectContainert.top) {
+        else if ((e.screenY - shift.y) < rectContainert.top) {
             copyElement.style.top = 0 + 'px';
             indexNum = 0;
-        } else if ((e.pageY + shift.y) > rectContainert.bottom) {
+        } else if ((e.screenY + shift.y) > rectContainert.bottom) {
             copyElement.style.bottom = 0 + 'px';
             indexNum = (rectContainert.bottom - rectContainert.top) / INPUT_ROW_HEIGHT;
         }
