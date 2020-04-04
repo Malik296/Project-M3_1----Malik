@@ -1,5 +1,8 @@
 window.addEventListener('load', handler);
 
+// высота одного столбца
+const INPUT_ROW_HEIGHT = 40;
+
 let containerList = document.querySelector('.input-list-dib');
 let rectInputElement;
 let shift = {};
@@ -78,28 +81,29 @@ let handleMouseDown = (e) => {
     parentElem.parentNode.append(copyElement);
     parentElem.classList.add('hidden');
 
-    shift.y = e.pageY - rectInputElement.top;
+    shift.y = e.screenY - rectInputElement.top;
+
+    console.log()
 
     // функция для без прерывной записи координатов строк
     let handleMouseMove = (e) => {
-        let minusPixel = (e.pageY - rectContainert.top);
-        minusPixel -= minusPixel % 40;
+        rectContainert = parentElem.parentElement.getBoundingClientRect();
+        let minusPixel = (e.screenY - rectContainert.top);
+        minusPixel -= minusPixel % INPUT_ROW_HEIGHT;
 
-        let indexNum = (e.pageY - rectContainert.top - shift.y) / 40;;
+        let indexNum = (e.screenY - rectContainert.top - shift.y) / INPUT_ROW_HEIGHT;;
         rectInputElement = parentElem.getBoundingClientRect();
 
-        if ((e.pageY - shift.y) >= rectContainert.top && ((e.pageY + shift.y) <= rectContainert.bottom)) {
-            parentElem.style.top = (e.pageY - rectContainert.top - minusPixel - shift.y) + 'px';
-            copyElement.style.top = (e.pageY - rectContainert.top - shift.y) + 'px';
-            indexNum = (e.pageY - rectContainert.top + 20 - shift.y) / 40;
-        } else if ((e.pageY - shift.y) < rectContainert.top) {
-            parentElem.style.top = 0 + 'px';
+        if ((e.screenY - shift.y) >= rectContainert.top && ((e.screenY - shift.y) <= (rectContainert.bottom - INPUT_ROW_HEIGHT))) {
+            copyElement.style.top = (e.screenY - rectContainert.top - shift.y) + 'px';
+            indexNum = (e.screenY - rectContainert.top - shift.y + INPUT_ROW_HEIGHT / 2) / INPUT_ROW_HEIGHT;
+        }
+        else if ((e.pageY - shift.y) < rectContainert.top) {
             copyElement.style.top = 0 + 'px';
             indexNum = 0;
-        } else if ((e.pageY + shift.y) > rectContainert.bottom) {
-            parentElem.style.bottom = 0 + 'px';
+        } else if ((e.pageY - shift.y) > rectContainert.bottom) {
             copyElement.style.bottom = 0 + 'px';
-            indexNum = (rectContainert.bottom - rectContainert.top) / 40;
+            indexNum = (rectContainert.bottom - rectContainert.top) / INPUT_ROW_HEIGHT;
         }
 
         // функция для вставки строку по индексу

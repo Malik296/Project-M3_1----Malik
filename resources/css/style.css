@@ -53,7 +53,6 @@ h1 {
     border-radius: 10px;
     margin: 0 auto;
     width: 286px;
-    /* overflow: -moz-hidden-unscrollable; */
     overflow: hidden;
 }
 
